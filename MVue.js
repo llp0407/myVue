@@ -144,14 +144,16 @@ class Compile{
             compileUtil['text'](node,content,this.vm)
         }
     }
+    // 是否是事件
     isEventName(attrName){
         return attrName.startsWith('@')
     }
+    // 是否是指令
     isDirective(attrName){
         return attrName.startsWith('v-')
     }
+    // 创建文档碎片
     node2Fragment(el){
-        // 创建文档碎片
         const f = document.createDocumentFragment();
         let firstChild;
         while(firstChild = el.firstChild){
@@ -159,6 +161,7 @@ class Compile{
         }
         return f
     }
+    // 是否是dom元素
     isElementNode(node){
         return node.nodeType === 1;
     }
