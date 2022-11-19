@@ -15,6 +15,7 @@ class Watcher{
     update(){
         const newVal = compileUtil.getVal(this.expr,this.vm);
         if(newVal !== this.oldVal){
+            this.oldVal = newVal
             this.cb(newVal)
         }
     }
@@ -62,8 +63,8 @@ class Observer {
         this.observe(value)
         const dep = new Dep();
         Object.defineProperty(obj,key,{
-            enumerable:true,
-            configurable:false,
+            // enumerable:true,
+            // configurable:false,
             get(){
                 // 订阅数据取值编译时，往Dep中添加观察者
                 Dep.target && dep.addSub(Dep.target)
@@ -72,9 +73,9 @@ class Observer {
             set:(newVal)=>{
                 //这一步是为了直接改变对象属性的时候也要监听
                 this.observe(newVal);
-                if(newVal !== value){
+                // if(newVal !== value){
                     value = newVal
-                }
+                // }
                 // 告诉Dep通知变化
                 dep.notifuy();
             }
